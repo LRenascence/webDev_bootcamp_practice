@@ -1,0 +1,50 @@
+<! Doctype html>
+<html>
+<head>
+	<title>Register</title>
+</head>
+<body>
+<H1>Register</H1>
+<form>
+	<label for='FirstName'>First Name:</label>
+	<input name='Firstname' id='FirstName' type='text' placeholder='John' required>
+	<label for='LastName'>Last Name:</label>
+	<input name='Lastname' id='LastName' type='text' placeholder='Smith' required>
+	<p></p>
+	<label for='Male'>Male</label>
+	<input name='gender' id='Male' type='radio' value='Male'>
+	<label for='Female'>Female</label>
+	<input name='gender' id='Female' type='radio' value='Femal'>
+	<label for='other'>other</label>
+	<input name='gender' id='other' type='radio' value='other'>
+	<p></p>
+	<label for='Email'>Email:</label>
+	<input name='Email' id='Email' type='Email' placeholder='your email' required>
+	<label for='Password'>Password:</label>
+	<input name='password' id='Password' type='password' pattern='.{5,10}' required title='5-10'>
+	<p>
+	Birthday:
+	<select name='Month'>
+		<option>Month</option>
+		<option>1</option>
+		<option>2</option>
+	</select>
+	<select name='Day'>
+		<option>Day</option>
+		<option>1</option>
+		<option>2</option>
+	</select>
+	<select name='Year'>
+		<option>Year</option>
+		<option>1</option>
+		<option>2</option>
+	</select>
+	</p>
+	<p>
+	<label for='check'>I agree to the terms and conditions</label>
+	<input name='terms' id='check' type='checkbox'>
+	</p>
+	<button>Submit</button>
+</form>
+</body>
+</html>
