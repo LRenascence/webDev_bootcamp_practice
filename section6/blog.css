@@ -1,0 +1,21 @@
+body {
+	border: 20px gray solid;
+	padding: 10px;
+	max-width: 700px;
+	width: 80%;
+	margin: 20px auto;
+	font-family: 'Livvic';
+	
+}
+.firstP {
+	border-left: 5px gray solid;
+	padding-left: 10px;
+}
+.date {
+	color: blue;
+	text-transform: uppercase;
+	letter-spacing: 0.2rem;
+}
+.head {
+	letter-spacing: 0.1rem;
+}
