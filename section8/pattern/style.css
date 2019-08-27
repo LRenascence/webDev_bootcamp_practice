@@ -1,0 +1,11 @@
+
+.nav-brand {
+    color: white;
+    font-size: 1.2rem
+}
+#header {
+    background-image: url('imgs\\header.jpeg')
+}
+h1 {
+    text-transform: uppercase
+}
