@@ -2,8 +2,11 @@ var express           = require("express"),
     app               = express(),
     bodyParser        = require("body-parser"),
     mongoose          = require("mongoose"),
+    passport          = require("passport"),
+    localStrategy     = require("passport-local"),
     seedDB            = require("./seeds"),
     Comment           = require("./models/comment"),
+    User              = require("./models/user"),
     Campground        = require("./models/campground");
 
 
@@ -16,6 +19,23 @@ app.use(express.static(__dirname + "/public"));
 
 seedDB();
 
+
+// passport
+app.use(require("express-session")({
+    secret: "secret page!",
+    resave: false,
+    saveUnitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+});
 
 app.get("/", function(req, res) {
     res.render("landing");
@@ -66,7 +86,7 @@ app.get("/campgrounds/:id", function(req, res) {
     
 });
 
-app.get("/campgrounds/:id/comments/new", function(req, res) {
+app.get("/campgrounds/:id/comments/new", isLoggedin, function(req, res) {
     Campground.findById(req.params.id, function(err, foundCamp) {
         if(err){
             console.log(err);
@@ -98,6 +118,46 @@ app.post("/campgrounds/:id/comments", function(req, res) {
     });
 });
 
+// authentication
+app.get("/register", function(req, res){
+    res.render("register");
+})
+
+app.post("/register", function(req, res){
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/campgrounds");
+        });
+    });
+});
+
+app.get("/login", function(req, res){
+    res.render("login");
+});
+
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/campgrounds",
+    failureRedirect: "/login"
+    }), function(req, res){
+    
+});
+
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
+function isLoggedin(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+};
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
