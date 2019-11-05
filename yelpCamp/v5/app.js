@@ -11,7 +11,7 @@ var express           = require("express"),
 
 var commentRoutes     = require("./routes/comments"),
     campgroundRoutes  = require("./routes/campgrounds"),
-    indexRoutes       = require("./routes/index")
+    indexRoutes       = require("./routes/index");
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
