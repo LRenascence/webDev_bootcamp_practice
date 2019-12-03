@@ -1,12 +1,12 @@
 var express   = require("express"),
-    router    = express.Router();
-    User      = require("../models/user")
+    router    = express.Router(),
+    User      = require("../models/user"),
+    passport  = require("passport");
+
+
 router.get("/", function(req, res) {
     res.render("landing");
 });
-
-
-
 
 // authentication
 router.get("/register", function(req, res){
@@ -30,6 +30,7 @@ router.get("/login", function(req, res){
     res.render("login");
 });
 
+
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/campgrounds",
     failureRedirect: "/login"
@@ -49,4 +50,4 @@ function isLoggedin(req, res, next){
     res.redirect("/login");
 };
 
-module.export = router;
+module.exports = router;
