@@ -18,7 +18,7 @@ router.get("/campgrounds/:id/comments/new", middleware.isLoggedin, function(req,
 router.post("/campgrounds/:id/comments",middleware.isLoggedin, function(req, res) {
     Campground.findById(req.params.id, function(err, foundCamp) {
         if(err){
-            console.log(err);
+            req.flash("error", err.message);
             res.redirect("/campgrounds");
         }
         else{
